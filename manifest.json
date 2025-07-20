@@ -1,10 +1,22 @@
 {
     "name": "Mach Color",
-    "description": "color repo contains more than 2000 color + color dropper",
+    "description": "A Chrome extension with a color repository of over 2000 colors and a color dropper tool.",
     "version": "1.0",
     "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+    },
     "action": {
         "default_popup": "/HTML/index.html",
         "default_icon": "/Assets/icon.png"
-    }
+    },
+    "permissions": [
+        "scripting",
+        "activeTab",
+        "clipboardWrite",
+        "contextMenus"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ]
 }

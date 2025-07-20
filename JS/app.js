@@ -1,8 +1,8 @@
-// set popup size
+// Set popup size for the extension UI
 const HTML = document.querySelector('html')
 HTML.style.width = `${screen.width*.5}px`
 
-//#region  Generate Collections
+//#region Generate and Categorize Color Collections
 
 /**
  * Generate optimized RGB colors with distinct differences
@@ -11,7 +11,6 @@ HTML.style.width = `${screen.width*.5}px`
  */
 function generateOptimizedRGBColors(step = 10) {
     console.log("🎨 Generating optimized RGB colors...");
-
     const colors = [];
     for (let r = 0; r < 256; r += step) {
         for (let g = 0; g < 256; g += step) {
@@ -25,7 +24,6 @@ function generateOptimizedRGBColors(step = 10) {
             }
         }
     }
-
     console.log(`✅ Generated ${colors.length} colors`);
     return colors;
 }
@@ -37,7 +35,6 @@ function rgbToHsl(r, g, b) {
     r /= 255, g /= 255, b /= 255;
     const max = Math.max(r, g, b), min = Math.min(r, g, b);
     let h, s, l = (max + min) / 2;
-
     if (max === min) {
         h = s = 0; // achromatic
     } else {
@@ -50,17 +47,15 @@ function rgbToHsl(r, g, b) {
         }
         h /= 6;
     }
-
     return { h: h * 360, s: s * 100, l: l * 100 };
 }
 
 /**
- * Filter similar colors using color distance
+ * Filter out similar colors using color distance
  */
 function filterSimilarColors(colors, minDistance = 20) {
     console.log(`🔍 Filtering similar colors (min distance: ${minDistance})...`);
     const uniqueColors = [];
-
     colors.forEach(color => {
         const isUnique = uniqueColors.every(uc => {
             const dr = uc.r - color.r;
@@ -70,7 +65,6 @@ function filterSimilarColors(colors, minDistance = 20) {
         });
         if (isUnique) uniqueColors.push(color);
     });
-
     console.log(`✅ ${uniqueColors.length} distinct colors remaining`);
     return uniqueColors;
 }
@@ -85,11 +79,9 @@ function categorizeColors(colors) {
         cyan: [], blue: [], purple: [], magenta: [],
         pink: [], brown: [], gray: [], white: [], black: []
     };
-
     colors.forEach(color => {
         const { r, g, b } = color;
         const { h, s, l } = rgbToHsl(r, g, b);
-
         // Neutral colors
         if (s < 10) {
             if (l > 90) categories.white.push(color);
@@ -97,7 +89,6 @@ function categorizeColors(colors) {
             else categories.gray.push(color);
             return;
         }
-
         // Colorful colors
         if (h < 15 || h >= 345) categories.red.push(color);
         else if (h >= 15 && h < 45) categories.orange.push(color);
@@ -108,39 +99,35 @@ function categorizeColors(colors) {
         else if (h >= 255 && h < 285) categories.purple.push(color);
         else if (h >= 285 && h < 315) categories.magenta.push(color);
         else if (h >= 315 && h < 345) categories.pink.push(color);
-
         // Special case for brown
         if ((h >= 10 && h < 45) && l < 40 && s > 20) {
             categories.brown.push(color);
         }
     });
-
     console.log("✅ Categorization complete!");
     return categories;
 }
 
-// Generate and process colors
+// Generate and process color collections
 const step = 15; // Larger step = fewer colors
 const colors = generateOptimizedRGBColors(step);
 const uniqueColors = filterSimilarColors(colors);
 const categorizedColors = categorizeColors(uniqueColors);
 
-// Output JSON
-
 //#endregion
 
-//#region Insert Collections To DOM
+//#region Insert Color Collections Into DOM
 Object.keys(categorizedColors).forEach(category => {
     GenerateColorCategory(category)
 })
 
-//generators
-
+/**
+ * Generate a color category section in the DOM
+ */
 function GenerateColorCategory(category) {
     const colorContainer = document.createElement('div')
     colorContainer.classList.add('color-container', 'hide')
-
-    //card header
+    // Card header
     const cardHeader = document.createElement('div')
     cardHeader.classList.add('card-header')
     cardHeader.innerHTML = `
@@ -150,18 +137,17 @@ function GenerateColorCategory(category) {
     cardHeader.onclick = function (e) { CardHeaderClick(e) }
     const cardBody = document.createElement('div')
     cardBody.classList.add('card-body')
-
     colorContainer.appendChild(cardHeader)
     categorizedColors[category].forEach(item => {
         GenerateColorBox(cardBody, item.hex)
-
     })
     colorContainer.appendChild(cardBody)
-
-
     document.querySelector('#container').appendChild(colorContainer)
 }
 
+/**
+ * Generate a color box element in the DOM
+ */
 function GenerateColorBox(cardBody, hex) {
     const colorBox = document.createElement('div')
     colorBox.classList.add('color-box')
@@ -173,36 +159,21 @@ function GenerateColorBox(cardBody, hex) {
     cardBody.appendChild(colorBox)
 }
 
-//events
+// Event handler for toggling color category visibility
 function CardHeaderClick(e) {
     var container = e.target.parentElement
     container.classList.toggle('hide');
 }
+
+// Event handler for copying color hex code to clipboard
 function ColorBoxClick(e) {
     var el = e.target
     navigator.clipboard.writeText(el.innerHTML)
-    alert('Color Copied Successfully')
+    alert('Color copied successfully!')
 }
 
-document.getElementById('color-picker').addEventListener('click', (e) => {
-    if (!window.EyeDropper) {
-        alert("Your browser does not support the EyeDropper API")
-        return;
-    }
-    const eyeDropper = new EyeDropper()
-    const abortController = new AbortController()
-    HTML.classList.add('close')
-    eyeDropper
-        .open({ signal: abortController.signal })
-        .then((result) => {
-            HTML.classList.remove('close')
-            navigator.clipboard.writeText(result.sRGBHex)
-            alert("Hex Code Copied")
-        })
-        .catch((e) => {
-            alert(`Error : ${e}`)
-        });
-})
+// Handle GitHub button click
+// Opens the GitHub repository in a new tab
 
 document.getElementById('github').addEventListener('click', (e) => {
     open('https://github.com/cheloei/MachColorChrome', '_blank')

@@ -1,4 +1,4 @@
-/* Global */
+/* Global variables */
 :root{
     --bg-color : #101113;
     --text-color : #feffff;
@@ -23,11 +23,13 @@ body{
     height: 100vh;
 }
 
-/* Card */
+/* Card container styles */
 .container{
     margin: 1rem;
     padding: 1rem;
 }
+
+/* Arrow icon for collapsible card headers */
 .color-container .card-header i.arrow::after{
     display: inline-block;
     font-family: bootstrap-icons !important;
@@ -40,18 +42,22 @@ body{
     -webkit-font-smoothing: antialiased;
     content: "\f238";
 }
+
 .color-container {
     background: var(--card-bg-color);
     padding: 1rem;
     margin: 1rem;
     border-radius: 6px;
 }
+
 .color-container.hide .card-body{
     display: none !important;
 }
+
 .color-container.hide .card-header i.arrow::after{
     content: "\f22c";
 }
+
 .color-container .card-header{
     color: var(--text-color);
     display: flex;
@@ -60,6 +66,7 @@ body{
     margin-top: 0;
     cursor: pointer;
 }
+
 .card-body {
     flex: 1 1 auto;
     padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
@@ -69,8 +76,9 @@ body{
     justify-content: center;
     margin-top: 1rem;
 }
- /* colors */
- .color-box {
+
+/* Color box styles */
+.color-box {
     border: 1.5px solid transparent;
     border-image: var(--box-border-color) 1;
     width: 55px;
@@ -80,17 +88,20 @@ body{
     margin-right: 5px;
     cursor: pointer;
 }
+
 .color-box:hover{
     border: 7px var(--hex) solid;
     transform: scale(1.05);
     text-shadow: .5px -.2px .5px var(--hex);
     transition: .25s;
 }
+
 .color-box:hover .hex{
     background: white;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 .color-box .hex{
     display: flex;
     flex-direction: column;
@@ -107,7 +118,7 @@ body{
     margin: auto;
 }
 
-/* other */
+/* Top button styles (e.g., GitHub button) */
 .top-buttons{
     color: white;
     font-size: 30px;
@@ -120,13 +131,16 @@ body{
     width: fit-content;
     cursor: pointer;
 }
+
 .top-buttons:hover{
     transform: scale(.9);
 }
+
 #color-picker{
     top: 0;
     right: 0;
 }
+
 #github{
     top: 0;
     left: 0;
