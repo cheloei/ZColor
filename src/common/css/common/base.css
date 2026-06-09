@@ -1,0 +1,125 @@
+/**
+ * Base styles – shared across all pages
+ * Dark theme, responsive layout, common components (toast, modal)
+ */
+
+:root {
+    --bg-dark: #0a0c12;
+    --bg-card: #1e2430;
+    --text-primary: #f0f3f8;
+    --text-secondary: #9aa3b5;
+    --accent: linear-gradient(135deg, #6A0DAD, #0E4D92);
+    --border: rgba(106, 13, 173, 0.3);
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --transition: 0.2s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: system-ui, 'Segoe UI', 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* common container (scrollable content area) */
+.container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    width: 100%;
+}
+
+/* sticky header for all pages (except menu) */
+.page-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(10, 12, 18, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.back-btn {
+    background: rgba(255,255,255,0.05);
+    border: none;
+    color: var(--text-primary);
+    padding: 0.4rem 1rem;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+.back-btn:hover {
+    background: #6A0DAD;
+}
+.page-header h2 {
+    flex: 1;
+    font-size: 1.3rem;
+}
+
+/* toast notification */
+.toast-notify {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e2a3a;
+    color: #a0f0ff;
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-size: 0.8rem;
+    z-index: 2001;
+    backdrop-filter: blur(8px);
+    animation: fadeUp 0.2s ease;
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* generic modal (used by gradient details, image picker, etc.) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.85);
+    backdrop-filter: blur(6px);
+}
+.modal-content {
+    background: var(--bg-card);
+    margin: 5% auto;
+    padding: 1.5rem;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 550px;
+    border: 1px solid var(--border);
+    max-height: 85vh;
+    overflow-y: auto;
+}
+.modal-close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}

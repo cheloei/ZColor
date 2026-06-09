@@ -1,24 +1,88 @@
 {
-  "name": "MachColorChrome",
-  "version": "1.0.0",
-  "description": "color repo contains more than 2000 color + color dropper extension for chrome",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "ZColor",
+  "version": "2.0.0",
+  "description": "Professional color toolkit for designers and developers – Chrome extension & cross‑platform desktop app with 2,200+ colors, 2,000+ gradients, SVG icon builder, and color picker",
+  "keywords": [
+    "color-palette",
+    "gradient-generator",
+    "icon-builder",
+    "chrome-extension",
+    "electron-app",
+    "design-tools",
+    "color-picker",
+    "svg-icons",
+    "frontend-tools"
+  ],
+  "author": {
+    "name": "Abolfazl Cheloyi",
+    "email": "achdev@achdev.ir",
+    "url": "https://github.com/cheloei"
   },
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cheloei/MachColorChrome.git"
+    "url": "git+https://github.com/cheloei/ZColor.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/cheloei/MachColorChrome/issues"
+    "url": "https://github.com/cheloei/ZColor/issues"
   },
-  "homepage": "https://github.com/cheloei/MachColorChrome#readme",
+  "homepage": "https://github.com/cheloei/ZColor#readme",
+  "scripts": {
+    "clean": "rimraf dist dist-electron release node_modules/.cache .cache",
+    "build": "npm run clean && node scripts/web-build.js && tsc",
+    "start": "npm run build && node scripts/start-server.js",
+    "dist": "npm run build && tsc -p tsconfig.electron.json && electron-builder"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.246",
+    "@types/node": "^25.6.0",
+    "electron": "^42.3.3",
+    "electron-builder": "^26.15.2",
+    "rimraf": "^6.1.3",
+    "serve": "^14.2.6",
+    "tar": "^7.5.16",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  },
   "dependencies": {
-    "bootstrap-icons": "^1.11.3"
+    "@fortawesome/fontawesome-free": "^7.2.0",
+    "@material-design-icons/svg": "^0.14.15",
+    "@phosphor-icons/core": "^2.1.1",
+    "bootstrap-icons": "^1.13.1",
+    "feather-icons": "^4.29.2",
+    "lucide-static": "^1.8.0",
+    "remixicon": "^4.9.1",
+    "unzipper": "^0.12.3"
+  },
+  "build": {
+    "appId": "com.zcolor.app",
+    "productName": "ZColor",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "extraMetadata": {
+      "main": "dist-electron/main.js"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "dist/assets/icon.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    },
+    "asar": true
   }
 }

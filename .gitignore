@@ -1,2 +1,9 @@
-package-lock.json
+#package-lock.json
 node_modules
+dist
+dist-electron
+release
+.cache
+*.bat
+*.txt
+*.zip

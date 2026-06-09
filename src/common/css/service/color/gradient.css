@@ -1,0 +1,322 @@
+/**
+ * Gradient Generator Styles
+ * Categories: multi‑column grid (original layout)
+ * Custom builder previews inside floating panel: full‑width column layout
+ */
+
+/* ========== Categories (multi‑column grid) ========== */
+.gradient-category {
+    background: var(--bg-card);
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+}
+
+.gradient-category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    background: rgba(0,0,0,0.2);
+}
+.gradient-category-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.gradient-category-header .chevron {
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+.gradient-category.hide .gradient-grid {
+    display: none;
+}
+.gradient-category.hide .chevron {
+    transform: rotate(-90deg);
+}
+
+/* Main gallery: multi‑column grid (like before) */
+.gradient-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.2rem;
+    padding: 1.2rem;
+}
+
+/* individual gradient card */
+.gradient-card {
+    background: rgba(0,0,0,0.3);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+}
+.gradient-card:hover {
+    transform: translateY(-4px);
+    border-color: #6A0DAD;
+}
+.gradient-preview {
+    height: 140px;
+    background-size: cover;
+}
+.gradient-info {
+    padding: 0.75rem;
+    font-size: 0.75rem;
+    text-align: center;
+    font-family: monospace;
+    background: rgba(0,0,0,0.4);
+}
+
+/* favorite star */
+.favorite-star {
+    transition: opacity 0.2s;
+}
+
+/* ========== Subcategories (collapsible) ========== */
+.subcategory-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: rgba(0,0,0,0.3);
+    margin: 0.5rem 0;
+    border-radius: 12px;
+    cursor: pointer;
+}
+.subcategory-header span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.subcategory-header .chevron {
+    font-size: 0.9rem;
+    transition: transform 0.2s;
+}
+.subcategory-header.collapsed .chevron {
+    transform: rotate(-90deg);
+}
+.subcategory-content.collapsed {
+    display: none;
+}
+
+/* ========== Modal for gradient details ========== */
+.modal-preview {
+    height: 120px;
+    border-radius: 16px;
+    margin: 1rem 0;
+}
+.modal-stops {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 1rem 0;
+    max-height: 250px;
+    overflow-y: auto;
+}
+.stop-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: rgba(0,0,0,0.3);
+    padding: 0.5rem;
+    border-radius: 12px;
+}
+.stop-color {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid white;
+}
+.stop-details {
+    flex: 1;
+    font-family: monospace;
+    font-size: 0.8rem;
+}
+.copy-stop-btn {
+    background: #2a3442;
+    border: none;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.modal-css pre {
+    background: #0a0c10;
+    padding: 0.8rem;
+    border-radius: 12px;
+    overflow-x: auto;
+    font-size: 0.7rem;
+    margin: 0.5rem 0;
+    white-space: pre-wrap;
+}
+.copy-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+.copy-option-btn {
+    background: #2a3442;
+    border: none;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+.copy-btn {
+    background: var(--accent);
+    border: none;
+    color: white;
+    padding: 6px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ========== FAB button ========== */
+.fab {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    z-index: 1000;
+    transition: transform 0.2s;
+}
+.fab:hover {
+    transform: scale(1.05);
+}
+
+/* ========== Floating Panel (draggable custom builder) ========== */
+.floating-panel {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    width: 380px;
+    background: var(--bg-card);
+    border-radius: 20px;
+    border: 1px solid #6A0DAD;
+    z-index: 2000;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    display: none;
+    flex-direction: column;
+}
+.floating-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    background: rgba(0,0,0,0.4);
+    border-radius: 20px 20px 0 0;
+    cursor: move;
+    user-select: none;
+}
+.close-floating-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.floating-body {
+    padding: 1rem;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+/* Custom builder – make previews full width (stack vertically) */
+.custom-colors-input {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+.color-input-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: #0a0c10;
+    border: 1px solid #6A0DAD;
+    border-radius: 20px;
+    padding: 0 0.5rem;
+}
+.color-preview {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid white;
+}
+.color-input {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 6px 0;
+    font-family: monospace;
+    width: 90px;
+    outline: none;
+}
+.add-color-btn, .generate-custom-btn {
+    background: #2a3442;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.generate-custom-btn {
+    background: var(--accent);
+    margin-top: 0.5rem;
+}
+.custom-previews {
+    display: flex;
+    flex-direction: column;    /* stack cards vertically */
+    gap: 1rem;
+    margin-top: 1rem;
+}
+.custom-preview-card {
+    width: 100%;               /* full width of floating panel */
+    background: rgba(0,0,0,0.4);
+    border-radius: 16px;
+    cursor: pointer;
+}
+.custom-preview {
+    height: 100px;
+    border-radius: 12px 12px 0 0;
+}
+.custom-code {
+    font-size: 0.6rem;
+    padding: 6px;
+    text-align: center;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 640px) {
+    .floating-panel {
+        width: calc(100% - 20px);
+        right: 10px;
+        left: 10px;
+        top: auto;
+        bottom: 10px;
+        max-height: 70vh;
+    }
+    .gradient-grid {
+        grid-template-columns: 1fr;  /* on small screens, main gallery also becomes single column */
+    }
+    .gradient-category-header {
+        padding: 0.8rem 1rem;
+    }
+    .gradient-category-header h3 {
+        font-size: 1rem;
+    }
+}

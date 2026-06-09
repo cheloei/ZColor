@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Generator - ZColor</title>
+    <link rel="stylesheet" href="../../../css/common/base.css">
+    <link rel="stylesheet" href="../../../css/service/color/gradient.css">
+</head>
+<body>
+
+    <div class="page-header">
+        <a href="../../index.html" class="back-btn">← Back</a>
+        <h2>🌈 Gradient Generator</h2>
+    </div>
+    <div id="gradient-container" class="container"></div>
+
+    <!-- gradient detail modal (same as before) -->
+    <div id="gradient-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3>Gradient Details</h3>
+            <div id="modal-preview" class="modal-preview"></div>
+            <div id="modal-stops" class="modal-stops"></div>
+            <div class="modal-css">
+                <label>CSS Code:</label>
+                <pre id="modal-css-code"></pre>
+                <button id="copy-css-btn" class="copy-btn">Copy CSS</button>
+            </div>
+        </div>
+    </div>
+
+    <button id="fab-custom-gradient" class="fab">➕</button>
+<div id="floating-builder" class="floating-panel" style="display: none;">
+    <div id="floating-header" class="floating-header">
+        <span>🖌️ Custom Builder</span>
+        <button id="close-floating" class="close-floating-btn">&times;</button>
+    </div>
+    <div id="floating-body" class="floating-body"></div>
+</div>
+
+    <script src="../../../js/entry/services/color/gradient.js" type="module"></script>
+</body>
+</html>

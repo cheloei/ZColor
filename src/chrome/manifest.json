@@ -1,0 +1,19 @@
+{
+    "name": "ZColor",
+    "version": "2.0.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "js/chrome/background.js"
+    },
+    "action": {
+        "default_icon": "/assets/icon.png"
+    },
+    "permissions": ["scripting", "activeTab", "clipboardWrite", "contextMenus", "storage", "tabs"],
+    "host_permissions": ["<all_urls>"],
+    "web_accessible_resources": [
+        {
+            "resources": ["/data/*.json", "/fonts/*", "/html/*.html"],
+            "matches": ["<all_urls>"]
+        }
+    ]
+}

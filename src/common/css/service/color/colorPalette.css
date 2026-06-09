@@ -1,0 +1,125 @@
+/**
+ * Color Palette – consistent hover effect using box-shadow + scale
+ */
+
+.color-container {
+    background: var(--bg-card);
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    background: rgba(0,0,0,0.2);
+}
+.card-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.card-header h3 small {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-left: 0.5rem;
+}
+.card-header .chevron {
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+.color-container.hide .card-body {
+    display: none;
+}
+.color-container.hide .chevron {
+    transform: rotate(-90deg);
+}
+
+/* color grid */
+.card-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 85px));
+    gap: 0.75rem;
+    padding: 1.2rem;
+    justify-content: center;
+}
+
+/* individual color box – background is the actual hex color */
+.color-box {
+    aspect-ratio: 1 / 1;
+    background-color: var(--box-bg);   /* set via inline style */
+    border-radius: 12px;
+    padding: 4px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+    position: relative;
+}
+
+/* consistent hover effect: scale + gradient shadow */
+.color-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 2px #6A0DAD, 0 0 0 4px #0E4D92;
+}
+
+/* hex text – semi‑transparent dark background for readability */
+.color-box .hex {
+    background: rgba(10, 12, 16, 0.7);
+    backdrop-filter: blur(2px);
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: white;
+    padding: 0 4px;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* favorite star (emoji) */
+.favorite-star {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    display: none;
+    text-shadow: 0 0 2px black;
+}
+.color-box:hover .favorite-star {
+    display: block;
+}
+
+/* image picker button */
+.image-picker-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid #6A0DAD;
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 40px;
+    cursor: pointer;
+    margin-left: auto;
+    transition: 0.2s;
+}
+.image-picker-btn:hover {
+    background: #6A0DAD;
+}
+
+/* responsive */
+@media (max-width: 640px) {
+    .card-body {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 70px));
+        gap: 0.5rem;
+    }
+    .color-box .hex {
+        font-size: 0.6rem;
+    }
+}
