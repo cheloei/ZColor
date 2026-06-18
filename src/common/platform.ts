@@ -86,11 +86,15 @@ export const Platform = {
     if (this.isChrome()) {
       return chrome.runtime.getURL(relativePath);
     }
-
     if (this.isDevServer()) {
       return relativePath;
     }
 
-    return location.href.split("/dist/")[0] + "/dist" + relativePath;
+    const pathname = window.location.pathname;
+    const base = pathname.replace(/\/html\/.*$/, "");
+    const path = relativePath.startsWith("/")
+      ? relativePath
+      : "/" + relativePath;
+    return base + path;
   },
 };
