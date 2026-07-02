@@ -1,3 +1,5 @@
+<img width="947" height="415" alt="preview" src="https://github.com/user-attachments/assets/28627bef-a9de-47a2-a9d8-5c124a9e41f6" />
+
 # 🎨 ZColor
 
 > Professional color toolkit – Chrome extension & cross‑platform desktop app

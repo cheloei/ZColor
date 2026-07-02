@@ -1,6 +1,6 @@
 {
   "name": "ZColor",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Professional color toolkit for designers and developers – Chrome extension & cross‑platform desktop app with 2,200+ colors, 2,000+ gradients, SVG icon builder, and color picker",
   "keywords": [
     "color-palette",
@@ -45,6 +45,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@aasaam/brand-icons": "^0.0.27",
     "@fortawesome/fontawesome-free": "^7.2.0",
     "@material-design-icons/svg": "^0.14.15",
     "@phosphor-icons/core": "^2.1.1",

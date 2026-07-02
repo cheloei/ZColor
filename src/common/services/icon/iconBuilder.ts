@@ -18,6 +18,7 @@ interface IconItem {
   library: string;
   name: string;
   path: string;
+  gradientSupport?: boolean;
 }
 
 let iconsList: IconItem[] = [];
@@ -172,40 +173,78 @@ export function renderIconBuilder(container: HTMLElement): void {
         </div>
     `;
 
+  // ---- references to gradient UI elements ----
+  const gradientTabBtn = container.querySelector(
+    '.color-type-btn[data-type="gradient"]',
+  ) as HTMLElement;
+  const solidTabBtn = container.querySelector(
+    '.color-type-btn[data-type="solid"]',
+  ) as HTMLElement;
+  const solidControl = document.getElementById("solid-control")!;
+  const gradientControl = document.getElementById("gradient-control")!;
+
+  // ---- function to show/hide gradient button based on selected icon ----
+  function updateGradientAvailability() {
+    if (!gradientTabBtn) return;
+
+    // If no icon selected, we show gradient (or could hide, but we choose to show)
+    const canUseGradient = selectedIcon
+      ? selectedIcon.gradientSupport !== false
+      : true;
+
+    // Hide or show the gradient tab
+    gradientTabBtn.style.display = canUseGradient ? "inline-block" : "none";
+
+    // If currently in gradient mode but icon doesn't support it, switch to solid
+    if (!canUseGradient && colorType === "gradient") {
+      colorType = "solid";
+      // Update active class on tabs
+      gradientTabBtn.classList.remove("active");
+      if (solidTabBtn) solidTabBtn.classList.add("active");
+      // Show/hide control panels
+      solidControl.style.display = "block";
+      gradientControl.style.display = "none";
+      // If a gradient was selected, clear it? We keep it but it won't be used.
+      // We could optionally reset selectedGradient to null, but not necessary.
+      // Update preview after switching
+      updatePreview();
+    }
+  }
+
   // ---- Mobile toggle: add button to show/hide icon panel ----
-  const customizePanel = container.querySelector('.icon-customize-panel');
-  const iconSelectorPanel = container.querySelector('.icon-selector-panel');
-  
+  const customizePanel = container.querySelector(".icon-customize-panel");
+  const iconSelectorPanel = container.querySelector(".icon-selector-panel");
+
   if (customizePanel && iconSelectorPanel) {
     // Add toggle button to customize panel (only visible on mobile via CSS)
-    let toggleBtn = customizePanel.querySelector('.mobile-toggle-icons-btn');
+    let toggleBtn = customizePanel.querySelector(".mobile-toggle-icons-btn");
     if (!toggleBtn) {
-      toggleBtn = document.createElement('button');
-      toggleBtn.className = 'mobile-toggle-icons-btn';
-      toggleBtn.textContent = '📂 Select Icon';
-      const previewArea = customizePanel.querySelector('.preview-area');
+      toggleBtn = document.createElement("button");
+      toggleBtn.className = "mobile-toggle-icons-btn";
+      toggleBtn.textContent = "📂 Select Icon";
+      const previewArea = customizePanel.querySelector(".preview-area");
       if (previewArea) {
         customizePanel.insertBefore(toggleBtn, previewArea);
       } else {
         customizePanel.prepend(toggleBtn);
       }
     }
-    
+
     // Add close button inside icon selector panel (hidden on desktop)
-    let closeBtn = iconSelectorPanel.querySelector('.mobile-close-icons');
+    let closeBtn = iconSelectorPanel.querySelector(".mobile-close-icons");
     if (!closeBtn) {
-      closeBtn = document.createElement('button');
-      closeBtn.className = 'mobile-close-icons';
-      closeBtn.textContent = '✕';
+      closeBtn = document.createElement("button");
+      closeBtn.className = "mobile-close-icons";
+      closeBtn.textContent = "✕";
       iconSelectorPanel.prepend(closeBtn);
       (closeBtn as HTMLButtonElement).onclick = () => {
-        iconSelectorPanel.classList.remove('open');
+        iconSelectorPanel.classList.remove("open");
       };
     }
-    
+
     // Toggle open/close on button click
     (toggleBtn as HTMLElement).onclick = () => {
-      iconSelectorPanel.classList.toggle('open');
+      iconSelectorPanel.classList.toggle("open");
     };
   }
 
@@ -213,8 +252,10 @@ export function renderIconBuilder(container: HTMLElement): void {
   const libraries = [...new Set(iconsList.map((i) => i.library))];
   const totalIcons = iconsList.length;
   const tabsContainer = document.getElementById("library-tabs")!;
-  const searchInput = document.getElementById("icon-search") as HTMLInputElement;
-  
+  const searchInput = document.getElementById(
+    "icon-search",
+  ) as HTMLInputElement;
+
   function renderTabs() {
     tabsContainer.innerHTML = "";
     const allBtn = document.createElement("button");
@@ -249,23 +290,26 @@ export function renderIconBuilder(container: HTMLElement): void {
   // ---- icon grid with fixed filtering ----
   function renderIconGrid() {
     const grid = document.getElementById("icon-grid")!;
-    
+
     // Filter by search query and current library
     let filtered = iconsList.filter((icon) => {
-      const matchesSearch = icon.name.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesLibrary = (currentLibrary === "All") || (icon.library === currentLibrary);
+      const matchesSearch = icon.name
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const matchesLibrary =
+        currentLibrary === "All" || icon.library === currentLibrary;
       return matchesSearch && matchesLibrary;
     });
-    
+
     // Limit to 200 icons for performance
     filtered = filtered.slice(0, 200);
-    
+
     grid.innerHTML = "";
     if (filtered.length === 0) {
       grid.innerHTML = '<div class="no-icons">No icons found</div>';
       return;
     }
-    
+
     for (const icon of filtered) {
       const div = document.createElement("div");
       div.className = `icon-item ${selectedIcon?.id === icon.id ? "selected" : ""}`;
@@ -273,18 +317,23 @@ export function renderIconBuilder(container: HTMLElement): void {
       div.onclick = async () => {
         selectedIcon = icon;
         // Resolve URL for fetch
-        let iconUrl = Platform.getAssetUrl(icon.path)
-        
+        let iconUrl = Platform.getAssetUrl(icon.path);
+
         const resp = await fetch(iconUrl);
         svgContent = await resp.text();
-        document.querySelectorAll(".icon-item").forEach((el) => el.classList.remove("selected"));
+        document
+          .querySelectorAll(".icon-item")
+          .forEach((el) => el.classList.remove("selected"));
         div.classList.add("selected");
+
+        // Update gradient availability based on selected icon
+        updateGradientAvailability();
         updatePreview();
-        
+
         // Close icon panel on mobile after selection
         if (window.innerWidth <= 768) {
-          const panel = document.querySelector('.icon-selector-panel');
-          if (panel) panel.classList.remove('open');
+          const panel = document.querySelector(".icon-selector-panel");
+          if (panel) panel.classList.remove("open");
         }
       };
       grid.appendChild(div);
@@ -299,13 +348,20 @@ export function renderIconBuilder(container: HTMLElement): void {
 
   // ---- controls ----
   const colorTypeBtns = document.querySelectorAll(".color-type-btn");
-  const solidControl = document.getElementById("solid-control")!;
-  const gradientControl = document.getElementById("gradient-control")!;
   colorTypeBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const type = (e.target as HTMLElement).getAttribute("data-type") as
         | "solid"
         | "gradient";
+      // If gradient is not available, ignore click
+      if (
+        type === "gradient" &&
+        selectedIcon &&
+        selectedIcon.gradientSupport === false
+      ) {
+        showToast("This icon does not support gradient", 1500);
+        return;
+      }
       colorType = type;
       solidControl.style.display = type === "solid" ? "block" : "none";
       gradientControl.style.display = type === "gradient" ? "block" : "none";
@@ -713,6 +769,9 @@ export function renderIconBuilder(container: HTMLElement): void {
       ?.addEventListener("click", () => modal.remove());
   }
 
+  // Initial render
   renderIconGrid();
+  // Set initial gradient availability (no icon selected, so show)
+  updateGradientAvailability();
   updatePreview();
 }

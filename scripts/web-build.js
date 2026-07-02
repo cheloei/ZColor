@@ -48,7 +48,8 @@ const iconLibs = [
     { name: 'Lucide Icons', src: 'node_modules/lucide-static/icons', dest: 'icons/lucide' },
     { name: 'Phosphor Icons', src: 'node_modules/@phosphor-icons/core/assets', dest: 'icons/phosphor' },
     { name: 'Material Icons', src: 'node_modules/@material-design-icons/svg', dest: 'icons/material-icons' },
-    { name: 'Feather Icons', src: 'node_modules/feather-icons/dist/icons', dest: 'icons/feather' }
+    { name: 'Feather Icons', src: 'node_modules/feather-icons/dist/icons', dest: 'icons/feather' },
+    {name: 'Brand Icons', src: 'node_modules/@aasaam/brand-icons/svg', dest: 'icons/brand-icons'}
 ];
 for (const lib of iconLibs) {
     console.log(`\n📦 ${lib.name}`);

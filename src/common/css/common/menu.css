@@ -69,7 +69,6 @@ body {
     background: var(--accent);
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
     margin-bottom: 0.6rem;
 }
 .card h3 {

@@ -14,17 +14,19 @@ interface IconLibrary {
     name: string;       // Display name of the library
     srcDir: string;     // Relative path to the folder containing SVG files
     destPrefix: string; // Destination folder name under dist/icons/
+    gradientSupport: boolean;
 }
 
 // List of supported icon libraries (must be installed via npm).
 const libraries: IconLibrary[] = [
-    { name: 'Font Awesome', srcDir: 'node_modules/@fortawesome/fontawesome-free/svgs', destPrefix: 'fontawesome' },
-    { name: 'Bootstrap Icons', srcDir: 'node_modules/bootstrap-icons/icons', destPrefix: 'bootstrap-icons' },
-    { name: 'Remix Icon', srcDir: 'node_modules/remixicon/icons', destPrefix: 'remixicon' },
-    { name: 'Lucide Icons', srcDir: 'node_modules/lucide-static/icons', destPrefix: 'lucide' },
-    { name: 'Phosphor Icons', srcDir: 'node_modules/@phosphor-icons/core/assets', destPrefix: 'phosphor' },
-    { name: 'Material Icons (Google)', srcDir: 'node_modules/@material-design-icons/svg', destPrefix: 'material-icons' },
-    { name: 'Feather Icons', srcDir: 'node_modules/feather-icons/dist/icons', destPrefix: 'feather' }
+    { name: 'Font Awesome', srcDir: 'node_modules/@fortawesome/fontawesome-free/svgs', destPrefix: 'fontawesome', gradientSupport: true },
+    { name: 'Bootstrap Icons', srcDir: 'node_modules/bootstrap-icons/icons', destPrefix: 'bootstrap-icons', gradientSupport: true },
+    { name: 'Remix Icon', srcDir: 'node_modules/remixicon/icons', destPrefix: 'remixicon', gradientSupport: true },
+    { name: 'Lucide Icons', srcDir: 'node_modules/lucide-static/icons', destPrefix: 'lucide', gradientSupport: true },
+    { name: 'Phosphor Icons', srcDir: 'node_modules/@phosphor-icons/core/assets', destPrefix: 'phosphor', gradientSupport: true },
+    { name: 'Material Icons (Google)', srcDir: 'node_modules/@material-design-icons/svg', destPrefix: 'material-icons', gradientSupport: true },
+    { name: 'Feather Icons', srcDir: 'node_modules/feather-icons/dist/icons', destPrefix: 'feather', gradientSupport: true },
+    {name: 'Brand Icons', srcDir: 'node_modules/@aasaam/brand-icons/svg', destPrefix: 'brand-icons', gradientSupport: false }
 ];
 
 /**
@@ -53,7 +55,8 @@ function walkDir(dir: string, library: string, destPrefix: string, result: any[]
                 id: `${library}/${name}`,      // unique identifier
                 library: library,
                 name: name,                   // human-readable icon name (e.g., "alarm")
-                path: finalPath               // extension internal path
+                path: finalPath,               // extension internal path
+                gradientSupport: libraries.find(x => x.name == library)?.gradientSupport
             });
         }
     }
