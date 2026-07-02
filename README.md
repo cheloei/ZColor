@@ -1,11 +1,11 @@
-<img width="947" height="415" alt="preview" src="https://github.com/user-attachments/assets/28627bef-a9de-47a2-a9d8-5c124a9e41f6" />
+<img width="947" height="415" alt="image" src="https://github.com/user-attachments/assets/ebb93fc6-dc81-43ae-b2f9-9b56c164a8a4" />
 
 # 🎨 ZColor
 
 > Professional color toolkit – Chrome extension & cross‑platform desktop app
 
 **ZColor** is a complete color toolbox for front‑end developers and designers.  
-It gives you instant access to **2,200+ curated colors**, **2,000+ gradients**, and an **SVG icon builder** that pulls from 7 popular icon libraries – all in one clean, dark‑themed interface.
+It gives you instant access to **2,200+ curated colors**, **200+ gradients**, and an **SVG icon builder** that pulls from 8 popular icon libraries – all in one clean, dark‑themed interface.
 
 Whether you work in the browser or on the desktop, Z‑Color helps you pick, generate, and export the perfect color assets for your projects.
 
@@ -14,8 +14,8 @@ Whether you work in the browser or on the desktop, Z‑Color helps you pick, gen
 ## ✨ Features
 
 - **🎨 Color Palette** – 2,200+ colors, organised into 13 categories (red, blue, pastel, dark, etc.). Click any color to copy its hex code.
-- **🌈 Gradient Generator** – 2,000+ linear and radial gradients, grouped by colour count (2–6 colours) and by usage (Nature, Technology, Romantic, etc.). Also includes a **drag‑and‑drop custom builder**.
-- **🖌️ Icon Builder** – Browse and search 7 icon libraries (Font Awesome, Bootstrap, Remix, Lucide, Phosphor, Material, Feather). Customise colour (solid or gradient), size, and transparency. Export as SVG or copy the raw code.
+- **🌈 Gradient Generator** – 200+ linear and radial gradients, grouped by colour count (2–6 colours) and by usage (Nature, Technology, Romantic, etc.). Also includes a **drag‑and‑drop custom builder**.
+- **🖌️ Icon Builder** – Browse and search 8 icon libraries (Font Awesome, Bootstrap, Remix, Lucide, Phosphor, Material, Feather, Brand Icons). Customise colour (solid or gradient), size, and transparency. Export as SVG or copy the raw code.
 - **⭐ Favourites** – Save your preferred colors and gradients. Stored persistently via `chrome.storage` (Chrome) or `localStorage` (Electron).
 - **🔍 Image colour picker** – Upload any image and click to grab a colour. (Chrome extension also provides an **EyeDropper** via the right‑click context menu.)
 - **🌑 Dark theme** – Easy on the eyes, designed for long working sessions.
